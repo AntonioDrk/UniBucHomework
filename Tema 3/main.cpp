@@ -29,17 +29,19 @@ class Ingredient
     float pret_unitar;
 
 public:
-    Ingredient()
+    Ingredient()                                    // constructor
     {
         denumire = new char[strlen("nedefinit")];
         strcpy(denumire, "nedefinit");
         cantitate = 0;
         pret_unitar = 0;
     };
-    ~Ingredient()
+    
+    ~Ingredient()                                  // destructor
     {
         //delete denumire;
     };
+    
     Ingredient(const char* _denumire, int _cantitate, float _pret_unitar)
     {
         denumire = new char[strlen(_denumire)];
@@ -57,6 +59,7 @@ public:
     }
 
     Ingredient& operator = (const Ingredient& ingredient);
+    
     friend ostream& operator << (ostream& out, Ingredient& ingredient);
     friend istream& operator >> (istream& in, Ingredient& ingredient);
 
@@ -206,21 +209,21 @@ public:
     {
         char _denPizza[500],str[1];
 
-        cout << "\nIntroduceti numele pizzei: ";
+        cout << "\nIntroduceti denumire pizza: ";
         in.getline(_denPizza,500);
         if(_denPizza[0] == '\0'){
-            cout <<"\nO eroare la citirea denumirii pizzei, introduceti inca odata numele pizzei: ";
+            cout <<"\nS-a produs o eroare, va rugam introduceti inca odata denumirea pizzei: ";
             in.getline(_denPizza,500);
         }
         pizza.denPizza = new char[ strlen(_denPizza) ];
         strcpy(pizza.denPizza, _denPizza);
-        cout << "\nIntroduceti nr ingrediente: ";
+        cout << "\nIntroduceti numarul de ingrediente: ";
         in >> pizza.nrIngrediente;
 
         if(pizza.nrIngrediente > 0)
         {
             pizza.ingrediente = new Ingredient[pizza.nrIngrediente];
-            cout << "\nIntroduceti ingredientele ";
+            cout << "\nIntroduceti ingredientele: ";
             for (int i = 0; i < pizza.nrIngrediente; ++i)
             {
                 cout << '\n';
@@ -352,8 +355,8 @@ class Meniu
 public:
     Meniu()
     {
-        /// Adaugam pe aici mai multe carnuri, ca sa verificam daca pizza nu le contine => e vegetariana
-        /// Note: E case sensitive, toate carnurile sa fie scrise cu litere mici ale alfabetului latin
+        /// Adaugam mai multe tipuri de carne pentru a verifica daca pizza nu le contine => e vegetariana
+        /// Note: E case sensitive, toate tipurile de carne sa fie scrise cu litere mici ale alfabetului latin
         numeCarnuri.push_back("carne");
         numeCarnuri.push_back("carnati");
         numeCarnuri.push_back("salam");
@@ -396,7 +399,7 @@ public:
             ok = true;
             for (int j=0; j < pizze[i]->getNrIngrediente(); j++)
             {
-                // Verificare daca pizza noastra are carne pe ea
+                // Verificare daca pizza noastra contine carne
                 for (int k = 0; k < numeCarnuri.size(); ++k) {
                     if(strcmp(ToLower(pizze[i]->getIngrediente()[j].getDenumire()),numeCarnuri[k]) == 0){
                         ok = false;
@@ -410,7 +413,7 @@ public:
             }
         }
         ofstream contabil(FILENAME_OUT);
-        contabil << "Pretul pizza vegetariana per comanda este: " << pret_total_veg;
+        contabil << "Pret pizza vegetariana per comanda este: " << pret_total_veg;
         contabil << "\nS-au vandut " << index_veg << " pizza vegetariene";
         contabil.close();
     }
