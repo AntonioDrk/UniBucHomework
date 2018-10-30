@@ -2,7 +2,7 @@
 
 using namespace std;
 
-/// CERINTA 5
+// Cerinta nr. 5
 
 
 class Nod{
@@ -14,6 +14,7 @@ public:
         info = 0;
         next = nullptr;
     }
+    
     Nod(Nod &nod){
         if(&nod != nullptr) {
             info = nod.getInfo();
@@ -25,10 +26,12 @@ public:
         info = _info;
         next = nullptr;
     }
+   
     Nod(int _info, Nod *_next){
         info = _info;
         next = _next;
     }
+    
     int getInfo(){
         return info;
     }
