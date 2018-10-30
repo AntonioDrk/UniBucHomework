@@ -15,22 +15,28 @@ public:
 class Stiva_de_caractere{
     Nod *head;
 public:
-    Stiva_de_caractere();   ///initializeaza varful stivei cu nullptr;
-    ~Stiva_de_caractere();  ///dezaloca toate elementele stivei;
+    Stiva_de_caractere();   // initializeaza varful stivei cu nullptr
+    Stiva_de_caractere(int nr_caractere);
+    ~Stiva_de_caractere();  // dezaloca toate elementele stivei
     void push(char);
     char pop();
     char top();
     bool isempty();
-    friend ostream& operator<<(ostream&, Stiva_de_caractere&);
-    friend istream& operator>>(istream&, Stiva_de_caractere&);
-    Stiva_de_caractere& operator-(Stiva_de_caractere&);
+    friend ostream& operator << (ostream&, Stiva_de_caractere&);  // supraincarcarea operatorului <<
+    friend istream& operator >> (istream&, Stiva_de_caractere&);  // supraincarcarea operatorului >>
+    Stiva_de_caractere& operator - (Stiva_de_caractere&);         // supraincarcarea operatorului -
 };
 
-Stiva_de_caractere::Stiva_de_caractere(){
+Stiva_de_caractere::Stiva_de_caractere(){           // constructor
     head = nullptr;
 }
 
-Stiva_de_caractere::~Stiva_de_caractere() {
+Stiva_de_caractere::Stiva_de_caractere(int nr_caractere){  // constructor parametrizat
+    head = nullptr;
+    nr_caractere = 0;
+}
+
+Stiva_de_caractere::~Stiva_de_caractere() {        //destructor
     Nod *p = head;
     while(p != nullptr){
         head = head->next;
@@ -55,7 +61,7 @@ char Stiva_de_caractere::pop(){
         delete tmp;
         return t;
     }
-    cout << "EROARE LA POP" << '\n';
+    cout << "Pop nu a fost executat corect" << '\n';
     return '-';
 }
 
@@ -73,7 +79,7 @@ Stiva_de_caractere& Stiva_de_caractere::operator-(Stiva_de_caractere& rightSide)
 
     result = new Stiva_de_caractere();
 
-    /// Cat timp ambele stive au ceva in ele
+    /// Cat timp ambele stive contin macar un caracter
     while(isempty() == false && rightSide.isempty() == false){
 
         /// Variabila de comparare (compareResult)
@@ -94,7 +100,7 @@ Stiva_de_caractere& Stiva_de_caractere::operator-(Stiva_de_caractere& rightSide)
 }
 
 ostream& operator<<(ostream &out, Stiva_de_caractere &stiva){
-    out << "STIVA : ";
+    out << "Stiva: ";
     while(stiva.isempty() == false ){
         out << stiva.pop() << "  ";
     }
@@ -103,10 +109,10 @@ ostream& operator<<(ostream &out, Stiva_de_caractere &stiva){
 }
 
 istream& operator>>(istream &in, Stiva_de_caractere &stiva){
-    cout << "INTRODUCETI DIMENSIUNEA STIVEI: ";
+    cout << "Introduceti dimensiunea stivei: ";
     int n;
     cin >> n;
-    cout << "\nINTRODUCETI CARACTERELE:  ";
+    cout << "\nIntroduceti caracterele:  ";
     char t;
     for(int i = 0; i < n; i++){
         in >> t;
@@ -168,7 +174,7 @@ int main() {
                 if(ind1 < 0 || ind1 >= nrStive || ind2 < 0 || ind2 >= nrStive){
                     cout << "Ati introdus indicii gresit, zic sa luati totul de la capat :)\n";
                 }else {
-                    cout << "Totul pare ok, rezultatul dintre scaderea stivei nr " << ind1 << " si stiva nr " << ind2 << " este:\n";
+                    cout << "Totul pare ok, rezultatul diferentei dintre stiva nr " << ind1 << " si stiva nr " << ind2 << " este:\n";
                     cout << v[ind1] - v[ind2] << '\n';
                 }
             }
