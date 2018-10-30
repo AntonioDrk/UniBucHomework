@@ -10,19 +10,19 @@ protected:
     int info;
     Nod *next;
 public:
-    Nod(){
+    Nod(){                      // constructor
         info = 0;
         next = nullptr;
     }
     
-    Nod(Nod &nod){
+    Nod(Nod &nod){              // constructor de copiere
         if(&nod != nullptr) {
             info = nod.getInfo();
             next = nod.getNext();
         }
     }
 
-    Nod(int _info){
+    Nod(int _info){            
         info = _info;
         next = nullptr;
     }
